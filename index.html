@@ -93,6 +93,10 @@
   </main>
   <script>
     document.body.classList.add("has-js");
+    document.querySelectorAll('a[href^="https://mail.google.com/mail/"]').forEach((link) => {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    });
     const revealItems = document.querySelectorAll(".reveal");
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
