@@ -77,12 +77,30 @@ p {
 }
 
 .site-nav a {
+  position: relative;
   opacity: 0.84;
   transition: opacity 0.2s ease;
 }
 
+.site-nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -7px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
 .site-nav a:hover {
   opacity: 1;
+}
+
+.site-nav a:hover::after {
+  transform: scaleX(1);
 }
 
 .header-order {
@@ -114,7 +132,18 @@ p {
   inset: 0;
   background: url("img/tiulpany_tsvety_rasteniia_202027_3840x2400.jpg") center 48% / cover no-repeat;
   transform: scale(1.02);
-  animation: hero-arrive 1.4s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation:
+    hero-arrive 1.4s cubic-bezier(0.2, 0.7, 0.25, 1) both,
+    hero-pan 28s 1.4s ease-in-out infinite alternate;
+}
+
+.hero-image::after {
+  position: absolute;
+  inset: -20%;
+  content: "";
+  background: linear-gradient(110deg, transparent 38%, rgb(255 255 255 / 9%) 49%, transparent 60%);
+  transform: translateX(-75%);
+  animation: hero-sheen 12s 2s ease-in-out infinite;
 }
 
 .hero-shade {
@@ -125,8 +154,82 @@ p {
     linear-gradient(0deg, rgb(14 18 13 / 32%), transparent 35%);
 }
 
+.hero-petals {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-petals span {
+  position: absolute;
+  top: -8%;
+  width: 18px;
+  height: 28px;
+  border-radius: 85% 15% 72% 28%;
+  background: linear-gradient(145deg, #ff8275 0%, #ef3f4e 52%, #ad1735 100%);
+  opacity: 0;
+  animation: petal-fall 12s linear infinite;
+}
+
+.hero-petals span:nth-child(1) {
+  left: 18%;
+  animation-delay: 0s;
+}
+
+.hero-petals span:nth-child(2) {
+  left: 42%;
+  width: 13px;
+  height: 21px;
+  animation-delay: 1.5s;
+}
+
+.hero-petals span:nth-child(3) {
+  left: 71%;
+  width: 15px;
+  height: 24px;
+  animation-delay: 3s;
+}
+
+.hero-petals span:nth-child(4) {
+  left: 88%;
+  width: 12px;
+  height: 19px;
+  animation-delay: 4.5s;
+}
+
+.hero-petals span:nth-child(5) {
+  left: 30%;
+  width: 14px;
+  height: 23px;
+  animation-delay: 6s;
+}
+
+.hero-petals span:nth-child(6) {
+  left: 58%;
+  width: 19px;
+  height: 30px;
+  animation-delay: 7.5s;
+}
+
+.hero-petals span:nth-child(7) {
+  left: 5%;
+  width: 13px;
+  height: 21px;
+  animation-delay: 9s;
+}
+
+.hero-petals span:nth-child(8) {
+  left: 80%;
+  width: 16px;
+  height: 26px;
+  animation-delay: 10.5s;
+}
+
 .hero-content {
   position: absolute;
+  z-index: 2;
   top: 50%;
   left: 13.2%;
   max-width: 640px;
@@ -147,6 +250,8 @@ p {
   margin: 0 9px 1px 0;
   border-radius: 50%;
   background: var(--orange);
+  box-shadow: 0 0 0 0 rgb(230 108 67 / 45%);
+  animation: dot-pulse 2.8s ease-out infinite;
 }
 
 .hero-eyebrow {
@@ -187,6 +292,10 @@ p {
   animation: rise-in 0.8s 0.65s both;
 }
 
+.round-link span {
+  animation: arrow-bob 1.8s ease-in-out infinite;
+}
+
 .round-link:hover {
   background: white;
   color: var(--ink);
@@ -195,6 +304,7 @@ p {
 .hero-note,
 .hero-index {
   position: absolute;
+  z-index: 2;
   bottom: 43px;
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -286,6 +396,7 @@ p {
   font: italic 11px / 1.35 var(--serif);
   text-align: center;
   transform: rotate(12deg);
+  animation: stamp-float 5s ease-in-out infinite;
 }
 
 .about-stamp span {
@@ -399,6 +510,15 @@ p {
   transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+.bouquet-photo::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(115deg, transparent 35%, rgb(255 255 255 / 22%) 50%, transparent 65%);
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
 .photo-tulips {
   background-position: 45% center;
 }
@@ -426,7 +546,13 @@ p {
 }
 
 .bouquet-photo:hover::before {
-  transform: scale(1.08);
+  transform: scale(1.09) rotate(0.5deg);
+}
+
+.bouquet-photo:hover::after {
+  opacity: 1;
+  transform: translateX(100%);
+  transition: transform 0.85s ease, opacity 0.2s ease;
 }
 
 .photo-label {
@@ -452,12 +578,13 @@ p {
   border: 1px solid rgb(255 255 255 / 72%);
   border-radius: 50%;
   font-size: 16px;
-  transition: color 0.25s, background 0.25s;
+  transition: color 0.25s, background 0.25s, transform 0.35s ease;
 }
 
 .bouquet-photo:hover .photo-arrow {
   color: var(--ink);
   background: white;
+  transform: rotate(45deg);
 }
 
 .bouquet-info {
@@ -509,20 +636,29 @@ p {
 }
 
 .outline-link {
+  position: relative;
+  overflow: hidden;
   padding: 13px 17px;
   border: 1px solid rgb(255 255 255 / 42%);
   font-size: 10px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .outline-link span {
+  display: inline-block;
   margin-left: 16px;
   color: #e99470;
+  transition: transform 0.3s ease;
 }
 
 .outline-link:hover {
   background: var(--paper);
   color: var(--dark);
+  border-color: var(--paper);
+}
+
+.outline-link:hover span {
+  transform: translate(3px, -3px);
 }
 
 .site-footer {
@@ -562,12 +698,17 @@ p {
 
 .has-js .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.65, 0.25, 1);
+  filter: blur(7px);
+  transform: translateY(32px) scale(0.985);
+  transition:
+    opacity 0.85s ease,
+    transform 0.85s cubic-bezier(0.2, 0.65, 0.25, 1),
+    filter 0.85s ease;
 }
 
 .has-js .reveal.is-visible {
   opacity: 1;
+  filter: blur(0);
   transform: translateY(0);
 }
 
@@ -578,6 +719,80 @@ p {
 
   to {
     transform: scale(1.02);
+  }
+}
+
+@keyframes hero-pan {
+  from {
+    background-position: 50% 48%;
+  }
+
+  to {
+    background-position: 53% 52%;
+  }
+}
+
+@keyframes hero-sheen {
+  0%,
+  65% {
+    transform: translateX(-75%);
+  }
+
+  100% {
+    transform: translateX(75%);
+  }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -4vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.82;
+  }
+
+  85% {
+    opacity: 0.68;
+  }
+
+  100% {
+    transform: translate3d(90px, 112vh, 0) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dot-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(230 108 67 / 45%);
+  }
+
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px rgb(230 108 67 / 0%);
+  }
+}
+
+@keyframes arrow-bob {
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes stamp-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(12deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(16deg);
   }
 }
 
