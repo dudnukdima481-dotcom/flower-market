@@ -107,7 +107,26 @@
           throw new Error("Не вдалося підготувати лист для замовлення.");
         }
 
-        link.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const encodedMessage = `subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        if (/Android/i.test(navigator.userAgent)) {
+          const fallbackParams = new URLSearchParams({
+            view: "cm",
+            fs: "1",
+            to: recipient,
+            su: subject,
+            body
+          });
+          const fallbackUrl = `https://mail.google.com/mail/?${fallbackParams.toString().replace(/\+/g, "%20")}`;
+          const intentPath = `${encodeURIComponent(recipient)}?${encodedMessage}`;
+
+          link.href = `intent:${intentPath}#Intent;scheme=mailto;package=com.google.android.gm;S.browser_fallback_url=${encodeURIComponent(fallbackUrl)};end`;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          return;
+        }
+
+        link.href = `mailto:${recipient}?${encodedMessage}`;
         return;
       }
 
