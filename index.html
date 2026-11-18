@@ -107,7 +107,7 @@
           throw new Error("Не вдалося підготувати лист для замовлення.");
         }
 
-        link.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        link.href = `mailto:?to=${encodeURIComponent(recipient)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         return;
       }
 
