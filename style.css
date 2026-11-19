@@ -19,6 +19,26 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #e66c43 #252920;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #252920;
+}
+
+html::-webkit-scrollbar-thumb {
+  border: 2px solid #252920;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff8275, #e04450 55%, #ad1735);
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff9a8f, #f25462 55%, #c12646);
 }
 
 body {
@@ -292,10 +312,6 @@ p {
   animation: rise-in 0.8s 0.65s both;
 }
 
-.round-link span {
-  animation: arrow-bob 1.8s ease-in-out infinite;
-}
-
 .round-link:hover {
   background: white;
   color: var(--ink);
@@ -519,16 +535,22 @@ p {
   transform: translateX(-100%);
 }
 
-.photo-tulips {
-  background-position: 45% center;
+.photo-roses {
+  background-position: 57% center;
+  background-image:
+    linear-gradient(0deg, rgb(20 20 17 / 27%), transparent 38%),
+    url("img/buket_rozy_kompozitsiia_115301_3840x2160.jpg");
 }
 
-.photo-tulips::before {
-  background-position: 45% center;
+.photo-roses::before {
+  background-position: 57% center;
 }
 
 .photo-spring {
   background-position: 72% center;
+  background-image:
+    linear-gradient(0deg, rgb(20 20 17 / 27%), transparent 38%),
+    url("img/exotic-rustic-bunch-flowers-mixed-colors.jpg");
   filter: saturate(0.72) sepia(0.1);
 }
 
@@ -538,6 +560,9 @@ p {
 
 .photo-sun {
   background-position: 26% center;
+  background-image:
+    linear-gradient(0deg, rgb(20 20 17 / 27%), transparent 38%),
+    url("img/wooden-basket-sweet-colour-roses-gift.jpg");
   filter: saturate(1.18) hue-rotate(-8deg);
 }
 
@@ -771,17 +796,6 @@ p {
   70%,
   100% {
     box-shadow: 0 0 0 9px rgb(230 108 67 / 0%);
-  }
-}
-
-@keyframes arrow-bob {
-  0%,
-  100% {
-    transform: translateY(-2px);
-  }
-
-  50% {
-    transform: translateY(3px);
   }
 }
 
